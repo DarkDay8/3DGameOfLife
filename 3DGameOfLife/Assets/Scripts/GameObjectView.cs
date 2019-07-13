@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class GameObjectView : MonoBehaviour
 {
-    public GameObject boll;
-    public Material red;
-    public Material blue;
+    [SerializeField]
+    private GameObject boll;
+    [SerializeField]
+    private Material red;
+    [SerializeField]
+    private Material blue;
 
     public void UpdateBoll(bool isRed, bool isSet)
     {

@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class GameController
 {
-    private byte fieldSize = 3;
+    private byte fieldSize = 5;
     private GameModel gameModel;
     private bool[,,] baseParam =
     {
-        {{false, false, false}, {false, false, false}, {false, false, false} },
-        {{false, false, false}, {false, true, false}, {false, false, false} },
-        {{false, false, false}, {false, false, false}, {false, false, false} }
+        {{false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false} },
+        {{false, false, false, false, false}, {false, false, false, false, false}, {false, false, true, false, false}, {false, false, false, false, false}, {false, false, false, false, false} },
+        {{false, false, false, false, false}, {false, false, false, false, false}, {false, false, true, false, false}, {false, false, false, false, false}, {false, false, false, false, false} },
+        {{false, false, false, false, false}, {false, false, false, false, false}, {false, false, true, false, false}, {false, false, false, false, false}, {false, false, false, false, false} },
+        {{false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false} }
+
     };
     public static bool IsSet { get; set; }
 

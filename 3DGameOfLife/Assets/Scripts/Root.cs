@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Root : MonoBehaviour
 {
-    GameController gameController;
+    private GameController gameController;
     // Start is called before the first frame update
     void Start()
     {
