@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Timers;
 using UnityEngine;
 
 public class ControlPanelController
@@ -18,11 +19,14 @@ public class ControlPanelController
         view.newFieldClick += CreateNewFiel;
         view.tickClick += Tick;
         view.setClick += CanSet;
+        view.autoTickClick += StartAutoTick;
     }
     private void CreateNewFiel()
     {
         gameModel.DestoyAll();
         gameModel.SetFieldSize(view.GetNewFieldSize()).InstantiateGameObjects();
+        view.autoTickClick -= StartAutoTick;
+        StopAutoTick();
     }
     private void Tick()
     {
@@ -32,5 +36,23 @@ public class ControlPanelController
     {
         GameController.IsSet = !GameController.IsSet;
         gameModel.SetNewStatus();
+    }
+    private void AutoTick()
+    {
+        Debug.Log("AutoTick");
+        Tick();
+        TimersManager.SetTimer(this, view.GetDelay(), AutoTick);
+    }
+    private void StartAutoTick()
+    {
+        view.autoTickClick -= StartAutoTick;
+        view.autoTickClick += StopAutoTick;
+        AutoTick();
+    }
+    private void StopAutoTick()
+    {
+        view.autoTickClick -= StopAutoTick;
+        view.autoTickClick += StartAutoTick;      
+        TimersManager.ClearTimer(AutoTick);
     }
 }
