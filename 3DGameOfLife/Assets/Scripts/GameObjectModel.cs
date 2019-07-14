@@ -7,6 +7,12 @@ public class GameObjectModel
     private GameObjectView view;
 
     public bool IsRed { get; set; }
+    /* To Debug
+    public void SetIJKToView(int i, int j, int k)
+    {
+        view.SetIJK(i, j, k);
+    }
+    */
     public GameObjectModel(GameObjectView view)
     {
         this.view = view;
