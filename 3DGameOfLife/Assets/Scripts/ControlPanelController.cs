@@ -7,30 +7,28 @@ using UnityEngine;
 public class ControlPanelController
 {
     private string path = "Prefabs/ControlPanel";
-    private ControlPanelView prefab;
     private GameModel gameModel;
-    private ControlPanelView view;
+    public ControlPanelView View { private set; get; }
 
     public ControlPanelController(ref GameModel gameModel)
     {
         this.gameModel = gameModel;
-        prefab = Resources.Load(path, typeof(ControlPanelView)) as ControlPanelView;
-        view = GameObject.Instantiate(prefab);
-        view.newFieldClick += CreateNewFiel;
-        view.tickClick += Tick;
-        view.setClick += CanSet;
-        view.autoTickClick += StartAutoTick;
+        View = GameObject.Instantiate(Resources.Load(path, typeof(ControlPanelView)) as ControlPanelView);
+        View.newFieldClick += CreateNewField;
+        View.tickClick += Tick;
+        View.setClick += CanSet;
+        View.autoTickClick += StartAutoTick;
     }
-    private void CreateNewFiel()
+    private void CreateNewField()
     {
         gameModel.DestoyAll();
-        gameModel.SetFieldSize(view.GetNewFieldSize()).InstantiateGameObjects();
-        view.autoTickClick -= StartAutoTick;
+        gameModel.SetFieldSize(View.GetNewFieldSize()).InstantiateGameObjects();
+        View.autoTickClick -= StartAutoTick;
         StopAutoTick();
     }
     private void Tick()
     {
-        gameModel.SetNewStatus(gameModel.NextStep(view.GetR1(), view.GetR2(), view.GetR3(), view.GetR4()));
+        gameModel.SetNewStatus(gameModel.NextStep(View.GetR1(), View.GetR2(), View.GetR3(), View.GetR4()));
     }
     private void CanSet()
     {
@@ -39,20 +37,19 @@ public class ControlPanelController
     }
     private void AutoTick()
     {
-        Debug.Log("AutoTick");
         Tick();
-        TimersManager.SetTimer(this, view.GetDelay(), AutoTick);
+        TimersManager.SetTimer(this, View.GetDelay(), AutoTick);
     }
     private void StartAutoTick()
     {
-        view.autoTickClick -= StartAutoTick;
-        view.autoTickClick += StopAutoTick;
+        View.autoTickClick -= StartAutoTick;
+        View.autoTickClick += StopAutoTick;
         AutoTick();
     }
     private void StopAutoTick()
     {
-        view.autoTickClick -= StopAutoTick;
-        view.autoTickClick += StartAutoTick;      
+        View.autoTickClick -= StopAutoTick;
+        View.autoTickClick += StartAutoTick;      
         TimersManager.ClearTimer(AutoTick);
     }
 }

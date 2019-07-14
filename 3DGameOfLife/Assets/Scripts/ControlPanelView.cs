@@ -27,6 +27,12 @@ public class ControlPanelView : MonoBehaviour
     private Button Set;
     [SerializeField]
     private Button AutoTick;
+    [SerializeField]
+    private Button Info;
+    [SerializeField]
+    private Button Close;
+    [SerializeField]
+    private GameObject InfoPanel;
     #endregion
 
     public event Action setClick; 
@@ -65,5 +71,7 @@ public class ControlPanelView : MonoBehaviour
         Tick.onClick.AddListener(() => tickClick());
         Set.onClick.AddListener(() => setClick());
         AutoTick.onClick.AddListener(() => autoTickClick());
+        Info.onClick.AddListener(() => InfoPanel.SetActive(true));
+        Close.onClick.AddListener(() => InfoPanel.SetActive(false));
     }
 }

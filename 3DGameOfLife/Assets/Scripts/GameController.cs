@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Timers;
 using UnityEngine;
@@ -8,6 +9,11 @@ public class GameController
     private byte fieldSize = 5;
     private GameModel gameModel;
     private ControlPanelController panelController;
+    private CameraController cameraController;
+    private string camerPath = "Prefabs/Camera";
+
+
+
     private bool[,,] baseParam =
     {
         {{true, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false}, {false, false, false, false, false} },
@@ -18,6 +24,7 @@ public class GameController
 
     };
 
+
     public static bool IsSet { get; set; }
 
     public GameController()
@@ -26,17 +33,15 @@ public class GameController
     }
     public void StartGame()
     {
+        cameraController = GameObject.Instantiate(Resources.Load(camerPath, typeof(CameraController)) as CameraController);
         gameModel = new GameModel(fieldSize);
         panelController = new ControlPanelController(ref gameModel);
+        panelController.View.newFieldClick += NewFieldClick;
         gameModel.InstantiateGameObjects(baseParam);
-        //TimersManager.SetTimer(this, 5, Tick);
-
+        cameraController.SetPosition(fieldSize);
     }
-
-    public void Tick()
+    private void NewFieldClick()
     {
-        gameModel.SetNewStatus(gameModel.NextStep(1,3,3,5));
-        TimersManager.SetTimer(this, 5, () => gameModel.DestoyAll());
+        cameraController.SetPosition(panelController.View.GetNewFieldSize());
     }
-
 }
