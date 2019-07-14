@@ -19,6 +19,9 @@ public class CameraController : MonoBehaviour
 
         transform.Rotate(moveVertical * Time.deltaTime * speed, moveHorizontal * Time.deltaTime * speed, 0);
         camera.localPosition = new Vector3(0, 0, camera.localPosition.z + moveRange * speed) ;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
     }
 
     public void SetPosition(byte boolInRow)
