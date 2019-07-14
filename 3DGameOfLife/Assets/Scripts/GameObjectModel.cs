@@ -21,4 +21,8 @@ public class GameObjectModel
     {
         view.UpdateBoll(IsRed, isSet);
     }
+    public void Destoy()
+    {
+        GameObject.Destroy(view.gameObject);
+    }
 }

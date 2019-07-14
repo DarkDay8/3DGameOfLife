@@ -13,16 +13,21 @@ public class GameModel
     public GameModel(byte field)
     {
         this.field = field;
-        position = new Vector3();
         prefab = Resources.Load(path, typeof(GameObjectView)) as GameObjectView;
-        gameOjects = new GameObjectModel[field, field, field];
     }
 
+    public GameModel SetFieldSize(byte size)
+    {
+        field = size;
+        return this;
+    }
     public bool InstantiateGameObjects(bool[,,] status)
     {
+        gameOjects = new GameObjectModel[field, field, field];
         if (status.Length != gameOjects.Length)
             return false;
 
+        position = new Vector3();
         for (int i = 0; i < field; i++)
         {
             position.z = 0;
@@ -46,6 +51,13 @@ public class GameModel
     public bool InstantiateGameObjects()
     {
         return InstantiateGameObjects(new bool[field, field, field]);
+    }
+    public void DestoyAll()
+    {
+        foreach (var item in gameOjects)
+        {
+            item.Destoy();
+        }
     }
     public void SetNewStatus(bool[,,] status)
     {
