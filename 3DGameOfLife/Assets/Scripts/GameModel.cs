@@ -75,6 +75,11 @@ public class GameModel
             }
         }
     }
+    public void SetNewStatus()
+    {
+        foreach (var item in gameOjects)
+            item.UpdateBollView(GameController.IsSet);
+    }
     public bool[,,] NextStep(byte r1, byte r2, byte r3, byte r4)
     {
         bool[,,] newStatus = new bool[field, field, field];

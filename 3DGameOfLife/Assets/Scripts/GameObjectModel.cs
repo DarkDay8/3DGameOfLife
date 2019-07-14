@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class GameObjectModel
     public GameObjectModel(GameObjectView view)
     {
         this.view = view;
+        this.view.clickToBool += ClickToBool;
     }
     public void UpdateBollView(bool isSet)
     {
@@ -24,5 +26,10 @@ public class GameObjectModel
     public void Destoy()
     {
         GameObject.Destroy(view.gameObject);
+    }
+    private void ClickToBool()
+    {
+        IsRed = !IsRed;
+        view.UpdateBoll(IsRed, GameController.IsSet);
     }
 }

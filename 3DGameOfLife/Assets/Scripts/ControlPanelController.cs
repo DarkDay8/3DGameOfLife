@@ -17,6 +17,7 @@ public class ControlPanelController
         view = GameObject.Instantiate(prefab);
         view.newFieldClick += CreateNewFiel;
         view.tickClick += Tick;
+        view.setClick += CanSet;
     }
     private void CreateNewFiel()
     {
@@ -26,5 +27,10 @@ public class ControlPanelController
     private void Tick()
     {
         gameModel.SetNewStatus(gameModel.NextStep(view.GetR1(), view.GetR2(), view.GetR3(), view.GetR4()));
+    }
+    private void CanSet()
+    {
+        GameController.IsSet = !GameController.IsSet;
+        gameModel.SetNewStatus();
     }
 }
