@@ -104,7 +104,7 @@ public class GameModel
     private bool DestroyRedBoll(byte min, byte max, int i, int j, int k)
     {
         int neighborsCount = NeighborsCount(i, j, k, true);
-        return neighborsCount > min && neighborsCount < max;
+        return neighborsCount > min || neighborsCount < max;
     }
     private int NeighborsCount(int i, int j, int k, bool isRed)
     {
